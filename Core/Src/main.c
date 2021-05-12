@@ -926,7 +926,7 @@ void runCommands(uint8_t *Buf, uint32_t *Len)
 		if (*Len >= 2 && (Buf[1] == 0x02))
 		{
 			//TODO: Функция записи фо флеш.
-			writeTable();
+//			writeTable();
 
 				UserTxBufferFS[0] = cmd;
 				UserTxBufferFS[1] = 0x00; // успешно

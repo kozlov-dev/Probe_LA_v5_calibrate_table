@@ -1,39 +1,39 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<Transactions>
-    <Transaction>1899.12.30 00:00:00.000.058,D:\_repo\git\probe\UFProbeTest.dfm=D:\_repo\git\probe\Unit3.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.484,=D:\_repo\git\probe\Probe.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.761,=D:\_repo\git\probe\Unit1.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.230,=D:\_repo\git\probe\Unit1.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.432,D:\_repo\git\probe\UMgqs.h=D:\_repo\git\probe\Unit1.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.507,=D:\_repo\git\probe\serial\ASerial.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.837,=D:\_repo\git\probe\Headers\lua.hpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.261,=D:\_repo\git\probe\Headers\Templates.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.687,=C:\Users\PC1\Documents\RAD Studio\Projects\Project11PCH1.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.912,C:\Users\PC1\Documents\RAD Studio\Projects\ProbeTestPCH1.h=C:\Users\PC1\Documents\RAD Studio\Projects\Project11PCH1.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.887,D:\_repo\git\probe\ProbeTest.cbproj=C:\Users\PC1\Documents\RAD Studio\Projects\ProbeTest.cbproj</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.334,D:\_repo\git\probe\Unit3.cpp=C:\Users\PC1\Documents\RAD Studio\Projects\Unit3.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.619,=D:\_repo\git\probe\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.761,=D:\_repo\git\probe\Unit1.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.293,=D:\_repo\git\probe\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.619,=D:\_repo\git\probe\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.917,C:\Users\PC1\Documents\RAD Studio\Projects\Project11.cbproj=C:\Users\PC1\Documents\RAD Studio\Projects\ProbeTest.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.837,=D:\_repo\git\probe\Headers\lua.hpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.252,D:\_repo\git\probe\UCalibrate.cpp=D:\_repo\git\probe\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.484,=D:\_repo\git\probe\Probe.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.687,=C:\Users\PC1\Documents\RAD Studio\Projects\Project11PCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.948,C:\Users\PC1\Documents\RAD Studio\Projects\ProbeTestPCH1.h=D:\_repo\git\probe\ProbeTestPCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.058,D:\_repo\git\probe\Unit3.cpp=D:\_repo\git\probe\UFProbeTest.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.912,C:\Users\PC1\Documents\RAD Studio\Projects\Project11PCH1.h=C:\Users\PC1\Documents\RAD Studio\Projects\ProbeTestPCH1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.431,D:\_repo\git\probe\Unit1.cpp=D:\_repo\git\probe\UMgqs.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.620,D:\_repo\git\probe\Unit1.cpp=D:\_repo\git\probe\UPsu.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.283,=D:\_repo\git\probe\lua\ULua.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.252,D:\_repo\git\probe\Unit1.cpp=D:\_repo\git\probe\UCalibrate.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.455,=D:\_repo\git\probe\lua.lib</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.948,D:\_repo\git\probe\ProbeTestPCH1.h=C:\Users\PC1\Documents\RAD Studio\Projects\ProbeTestPCH1.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.620,D:\_repo\git\probe\UPsu.cpp=D:\_repo\git\probe\Unit1.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.620,D:\_repo\git\probe\UPsu.h=D:\_repo\git\probe\Unit1.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.252,D:\_repo\git\probe\Unit1.h=D:\_repo\git\probe\UCalibrate.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.058,D:\_repo\git\probe\UFProbeTest.cpp=D:\_repo\git\probe\Unit3.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.352,=D:\_repo\git\probe\serial\Serial.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.762,=D:\_repo\git\probe\USignals.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.334,C:\Users\PC1\Documents\RAD Studio\Projects\Unit3.dfm=D:\_repo\git\probe\Unit3.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.261,=D:\_repo\git\probe\Headers\Templates.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.620,D:\_repo\git\probe\Unit1.h=D:\_repo\git\probe\UPsu.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.432,D:\_repo\git\probe\Unit1.h=D:\_repo\git\probe\UMgqs.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.058,D:\_repo\git\probe\Unit3.dfm=D:\_repo\git\probe\UFProbeTest.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.334,C:\Users\PC1\Documents\RAD Studio\Projects\Unit3.h=D:\_repo\git\probe\Unit3.h</Transaction>
     <Transaction>1899.12.30 00:00:00.000.889,=D:\_repo\git\probe\ULog.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.334,D:\_repo\git\probe\Unit3.h=C:\Users\PC1\Documents\RAD Studio\Projects\Unit3.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.058,D:\_repo\git\probe\UFProbeTest.h=D:\_repo\git\probe\Unit3.h</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.431,D:\_repo\git\probe\UMgqs.cpp=D:\_repo\git\probe\Unit1.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.352,=D:\_repo\git\probe\serial\Serial.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.252,D:\_repo\git\probe\UCalibrate.h=D:\_repo\git\probe\Unit1.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.762,=D:\_repo\git\probe\USignals.cpp</Transaction>
     <Transaction>1899.12.30 00:00:00.000.746,=C:\Users\PC1\Documents\RAD Studio\Projects\Unit3.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.123,=D:\_repo\git\probe\lua\ULuaFunc.cpp</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.334,D:\_repo\git\probe\Unit3.dfm=C:\Users\PC1\Documents\RAD Studio\Projects\Unit3.dfm</Transaction>
-    <Transaction>1899.12.30 00:00:00.000.917,C:\Users\PC1\Documents\RAD Studio\Projects\ProbeTest.cbproj=C:\Users\PC1\Documents\RAD Studio\Projects\Project11.cbproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.334,C:\Users\PC1\Documents\RAD Studio\Projects\Unit3.cpp=D:\_repo\git\probe\Unit3.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.507,=D:\_repo\git\probe\serial\ASerial.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.455,=D:\_repo\git\probe\lua.lib</Transaction>
     <Transaction>1899.12.30 00:00:00.000.273,=D:\_repo\git\probe\UAnalizator.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.123,=D:\_repo\git\probe\lua\ULuaFunc.cpp</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.058,D:\_repo\git\probe\Unit3.h=D:\_repo\git\probe\UFProbeTest.h</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.887,C:\Users\PC1\Documents\RAD Studio\Projects\ProbeTest.cbproj=D:\_repo\git\probe\ProbeTest.cbproj</Transaction>
   </Transactions>
 	<ProjectSortOrder AutoSort="0" SortType="0">
     <VirtualFolder ID="{56864775-42B8-428F-B841-BC6A2428E10D}"/>
