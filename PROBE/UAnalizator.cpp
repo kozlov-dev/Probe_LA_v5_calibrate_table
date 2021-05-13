@@ -109,7 +109,7 @@ bool	__fastcall Analizator::is_connected(){
 	if(!_probe.isOpened())	return false;
 
 	std::string	id;
-	return (_probe.getDeviceID(id) && id == DEFAULT_ID);
+	return (_probe.getDeviceID(id) && (id == DEFAULT_ID || id.substr(0,2) == DEFAULT_NEW_ID));
 
 };
 
@@ -463,9 +463,21 @@ bool Analizator::setTableCount(u8 mode, i16 min, i16 max, u16 count){
 };
 
 //-------------------------------------
-bool Analizator::setTablePacket(u8 mode, u16 offset, u16 count, u16 code[]){
+bool Analizator::setTablePacket(u8 mode, u16 offset, u16 count, u16 code[], u16 pack_size){
 
-	_probe.setTablePacket(mode,offset,count,code);
+	if(!pack_size)	return false;
+	u16 n 		= count/pack_size;
+	u16 rest	= count%pack_size;
+	bool res 	= true;
+
+	for(int i = 0; i < n; i++){
+		res &= _probe.setTablePacket(mode,offset + i*pack_size,pack_size,&code[i*pack_size]);
+		if(!res)	return false;
+		Sleep(200);
+	}
+	if(rest)	res &= _probe.setTablePacket(mode,offset + n*pack_size,rest,&code[n*pack_size]);
+
+	return res;
 };
 
 //-------------------------------------

@@ -91,6 +91,8 @@ __published:	// IDE-managed Components
 	TEdit *Edit5;
 	TEdit *Edit6;
 	TButton *Button9;
+	TEdit *Edit7;
+	TLabel *Label8;
 	void __fastcall FormCreate(TObject *Sender);
 	void __fastcall Button3Click(TObject *Sender);
 	void __fastcall ToolButton1Click(TObject *Sender);

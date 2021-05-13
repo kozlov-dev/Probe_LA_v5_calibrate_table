@@ -71,6 +71,8 @@ uint8_t GetBtnRunState();
 uint8_t GetBtnUpState();
 uint8_t GetBtnDownState();
 //--------------------------------------------------------------------------
+void writeTableInFlash();
+//--------------------------------------------------------------------------
 void runCommands(uint8_t *Buf, uint32_t *Len);
 //--------------------------------------------------------------------------
 uint8_t GetInHL();
@@ -89,7 +91,8 @@ uint32_t getCRC_table_b_m12();
 uint32_t getCRC_table_a_m27();
 uint32_t getCRC_table_b_m27();
 
-void writeTable();
+
+
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/

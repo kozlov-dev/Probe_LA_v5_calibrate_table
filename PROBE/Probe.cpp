@@ -186,7 +186,21 @@ bool Probe::setTablePacket(u8 mode, u16 offset, u16 count, u16 code[]){
 
 	if (mutexGetButtonState)	ReleaseMutex(mutexGetButtonState);
 
-	return (bufLen >= 2 && buf[0] == 0x0A && buf[1] == 0x00);
+	u8 	command			= 0x00;
+	u8 	rcv_mode		= 0x00;
+	u16 rcv_offset 	= 0x00;
+	u16 rcv_count  	= 0x00;
+	u8  rcv_state	= 0x01;
+
+	if(bufLen < 7)	return false;
+
+	memcpy(&command, 	buf , 	 sizeof(u8));
+	memcpy(&rcv_mode,   buf + 1, sizeof(u8));
+	memcpy(&rcv_offset, buf + 2, sizeof(u16));
+	memcpy(&rcv_count,  buf + 4, sizeof(u16));
+	memcpy(&rcv_state,  buf + 6, sizeof(u8));
+
+	return (command == 0x0A && mode == rcv_mode && offset == rcv_offset && count == rcv_count && rcv_state == 0x00);
 };
 
 

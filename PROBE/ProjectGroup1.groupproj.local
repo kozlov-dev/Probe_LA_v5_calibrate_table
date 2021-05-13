@@ -2,6 +2,6 @@
 <BorlandProject>
 	<Transactions/>
 	<Default.Personality>
-		<Projects ActiveProject="C:\Users\kozlov\STM32CubeIDE\workspace\Probe_LA_v5_calibrate_table\PROBE\TestSerial.cbproj"/>
+		<Projects ActiveProject="D:\_repo\git\probe\ProbeTest.cbproj"/>
 	</Default.Personality>
 </BorlandProject>

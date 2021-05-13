@@ -10,8 +10,8 @@
 #include "UData.h"
 #include "USignals.h"
 //---------------------------------------------------------------------------
-//const std::string	DEFAULT_ID	= "prb_v0.3";
-const std::string	DEFAULT_ID	= "SN1121001";
+const std::string	DEFAULT_ID	= "prb_v0.3";
+const std::string	DEFAULT_NEW_ID	= "SN";
 
 const i32	V12_MIN	= -12000;
 const i32	V12_MAX	= 12000;
@@ -74,7 +74,7 @@ public:
 
 	HList			get_COM_ports();
 	bool setTableCount(u8 mode, i16 min, i16 max, u16 count);
-	bool setTablePacket(u8 mode, u16 offset, u16 count, u16 code[]);
+	bool setTablePacket(u8 mode, u16 offset, u16 count, u16 code[], u16 pack_size);
 
 private:
 

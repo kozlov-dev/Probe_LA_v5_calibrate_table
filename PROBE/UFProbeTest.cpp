@@ -27,7 +27,7 @@ extern bool stop;
 String TAG_START	= "--functions";
 String TAG_END		= "--end_functions";
 
-String VERSION = "1.1.0.5";
+String VERSION = "1.1.0.7";
 //============================================================================
 String minimize_text(const String& text, TCanvas* canvas, int width){
 // Log("MinimizeText");
@@ -683,15 +683,13 @@ void __fastcall TForm3::Button9Click(TObject *Sender)
 	u16 offset 	= StrToInt(Edit5->Text);
 	u16 count 	= StrToInt(Edit6->Text);
 	u16* data	= new u16[count];
+	u16 pack_size	= StrToInt(Edit7->Text);
 	for(int  i = 0; i < count; i++){
 		if(i + offset < vect.size()) data[i] = vect[i + offset].second;
 		else data[i] = 0;
 	}
-	analizator->setTablePacket(mode, offset, count, data);
+	if(!analizator->setTablePacket(mode, offset, count, data,pack_size))	ShowMessage("Данные не отправлены");
 }
 //---------------------------------------------------------------------------
-
-
-
 
 

@@ -98,14 +98,14 @@ TIM_HandleTypeDef htim4;
 /* USER CODE BEGIN PV */
 //--------------------------------------------------------------------------
 #if USB_RESET
-void USB_Reset();
+void USB_Reset(void);
 не работает без использвоания транзистора на D +
 #endif /* USB_RESET */
 	//--------------------------------------------------------------------------
 	/* USER CODE END PV */
 
 	/* Private function prototypes -----------------------------------------------*/
-	void SystemClock_Config(void);
+void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SPI1_Init(void);
 static void MX_ADC1_Init(void);
@@ -157,6 +157,9 @@ uint16_t VDAC_B = 0;
 //	DAC_AD5322_Ch1Ch2(&hspi1,VDAC_A,VDAC_B);
 //}
 //--------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------
+FLASH_EraseInitTypeDef EraseInitStruct;		  // структура для очистки флеша
 union NVRAM DevNVRAM;
 //--------------------------------------------------------------------------
 uint32_t getCRC_table_a_m12()
@@ -464,13 +467,54 @@ void USB_RESET(void)
 	}; // немного ждём
 }
 #endif /* USB_RESET */
-//uint8_t  flash_write(){
-//	return 0x00;
-//}
 
-uint8_t RelayState = 0x00; //TODO: проверить первое состоянеи первоначальное состояние реле 27V
+
+//**************************************************************************
+void writeTableInFlash() {
+
+	uint32_t l_Address = FLASH_TABLE_START_ADDR;
+	uint32_t l_Error = 0;
+	uint32_t l_Index = 0;
+	//Читаем и сравниваем
+	while (l_Address < FLASH_TABLE_STOP_ADDR) {
+		if (&DevNVRAM.data32[l_Index] != *(volatile uint32_t*) l_Address) {
+			l_Error++;
+		}
+		l_Index = l_Index + 1;
+		l_Address = l_Address + 4;
+	}
+	// конфигурация изменилась сохраняем
+	printf("Ошибка чтения таблицы :%i", l_Error);
+	if (l_Error > 0) {
+		// конфигурация изменилась сохраняем
+		// Готовим к записи в память
+		HAL_FLASH_Unlock();
+		// Очищаем страницу памяти
+		HAL_FLASHEx_Erase(&EraseInitStruct, &l_Error);
+		//Пишем данные в память
+		l_Address = FLASH_TABLE_START_ADDR;
+		l_Error = 0x00;
+		l_Index = 0x00;
+		DevNVRAM.sector.NWrite = DevNVRAM.sector.NWrite + 1;
+		DevNVRAM.sector.CheckSum = 0; //HAL_CRC_Calculate(&hcrc, &DevNVRAM.calibration_table, (sizeof(DevNVRAM.calibration_table)/4));
+		while (l_Address < FLASH_TABLE_STOP_ADDR) {
+			if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, l_Address,
+					&DevNVRAM.data32[l_Index]) != HAL_OK) {
+				l_Error++;
+			}
+			l_Address = l_Address + 4;
+			l_Index = l_Index + 1;
+			HAL_Delay(10);
+		}
+		HAL_FLASH_Lock();
+	}
+//	HAL_Delay(100);
+}
+
+bool RelayState = 0x00; //TODO: проверить первое состоянеи первоначальное состояние реле 27V
 bool changeTableFlag = false;
 void runCommands(uint8_t *Buf, uint32_t *Len)
+
 {
 	if (*Len < 1)
 		return;
@@ -926,7 +970,7 @@ void runCommands(uint8_t *Buf, uint32_t *Len)
 		if (*Len >= 2 && (Buf[1] == 0x02))
 		{
 			//TODO: Функция записи фо флеш.
-//			writeTable();
+			writeTableInFlash();
 
 				UserTxBufferFS[0] = cmd;
 				UserTxBufferFS[1] = 0x00; // успешно
@@ -958,58 +1002,8 @@ int main(void)
 {
 	/* USER CODE BEGIN 1 */
 
+//	writeTableInFlash();
 
-	static FLASH_EraseInitTypeDef EraseInitStruct; // структура для очистки флеша
-
-	EraseInitStruct.TypeErase = FLASH_TYPEERASE_PAGES;	  // постраничная очистка, FLASH_TYPEERASE_MASSERASE - очистка всего флеша
-	EraseInitStruct.PageAddress = FLASH_TABLE_START_ADDR; // адрес 127-ой страницы
-	EraseInitStruct.NbPages = 0x01;						  // кол-во страниц для стирания
-	//EraseInitStruct.Banks = FLASH_BANK_1; // FLASH_BANK_2 - банк №2, FLASH_BANK_BOTH - оба банка
-	//--------------------------------------------------------------------------
-	uint32_t l_Address;
-	uint32_t l_Error;
-	uint32_t l_Index;
-	//--------------------------------------------------------------------------
-	void writeTable() {
-			changeTableFlag = false;
-			l_Address = FLASH_TABLE_START_ADDR;
-			l_Error = 0;
-			l_Index = 0;
-			//Читаем и сравниваем
-			while (l_Address < FLASH_TABLE_STOP_ADDR) {
-				if (&DevNVRAM.data32[l_Index] != *(volatile uint32_t*) l_Address) {
-					l_Error++;
-				}
-				l_Index = l_Index + 1;
-				l_Address = l_Address + 4;
-			}
-			// конфигурация изменилась сохраняем
-			printf("Ошибка чтения таблицы :%i", l_Error);
-			if (l_Error > 0) {
-				// конфигурация изменилась сохраняем
-				// Готовим к записи в память
-				HAL_FLASH_Unlock();
-				// Очищаем страницу памяти
-				HAL_FLASHEx_Erase(&EraseInitStruct, &l_Error);
-				//Пишем данные в память
-				l_Address = FLASH_TABLE_START_ADDR;
-				l_Error = 0x00;
-				l_Index = 0x00;
-				DevNVRAM.sector.NWrite = DevNVRAM.sector.NWrite + 1;
-				DevNVRAM.sector.CheckSum = 0; //HAL_CRC_Calculate(&hcrc, &DevNVRAM.calibration_table, (sizeof(DevNVRAM.calibration_table)/4));
-				while (l_Address < FLASH_TABLE_STOP_ADDR) {
-					if (HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, l_Address,
-							&DevNVRAM.data32[l_Index]) != HAL_OK) {
-						l_Error++;
-					}
-					l_Address = l_Address + 4;
-					l_Index = l_Index + 1;
-					HAL_Delay(10);
-				}
-				HAL_FLASH_Lock();
-			}
-			HAL_Delay(100);
-		}
 
 	/* USER CODE END 1 */
 
@@ -1075,9 +1069,9 @@ int main(void)
 //**************************************************************************
 
 	// Чтение DevNVRAM
-	l_Address = FLASH_TABLE_START_ADDR;
-	l_Error = 0;
-	l_Index = 0;
+	uint32_t l_Address = FLASH_TABLE_START_ADDR;
+	uint32_t l_Error = 0;
+	uint32_t l_Index = 0;
 	while (l_Address < FLASH_TABLE_STOP_ADDR)
 	{
 		DevNVRAM.data32[l_Index] = *(__IO uint32_t *)l_Address;
@@ -1247,9 +1241,8 @@ int main(void)
 		// Циклически проверяем соотвествует ли информация в памяти массиву настроек?
 
 
-	if(changeTableFlag){
-			writeTable(&DevNVRAM, &EraseInitStruct);
-	}
+//	if(changeTableFlag) writeTableInFlash();
+
 //**************************************************************************
 
 		uint32_t Crc_cal_a_m12 = getCRC_table_a_m12();
