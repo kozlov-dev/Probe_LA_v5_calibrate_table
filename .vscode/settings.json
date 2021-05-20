@@ -3,6 +3,8 @@
     "files.associations": {
         "xhash": "c",
         "xtree": "c",
-        "xutility": "c"
+        "xutility": "c",
+        "dac_ad5322.h": "c",
+        "logic_calibration_table.h": "c"
     }
 }
