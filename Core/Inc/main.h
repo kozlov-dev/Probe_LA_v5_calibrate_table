@@ -103,7 +103,6 @@ void writeTable();
 #define AD5312_SCLK_GPIO_Port GPIOA
 #define AD5312_DIN_Pin GPIO_PIN_7
 #define AD5312_DIN_GPIO_Port GPIOA
-
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

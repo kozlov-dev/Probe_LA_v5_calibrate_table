@@ -61,3 +61,11 @@ Debug/makefile
 *.list
 Debug/Probe_LA_v5_calibrate_table.bin
 Debug/Probe_LA_v5_calibrate_table.list
+*.prefs
+*.bin
+*.list
+*.prefs
+*.prefs
+*.bin
+*.list
+*.list
