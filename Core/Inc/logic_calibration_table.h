@@ -17,7 +17,7 @@
 #define MAGIC_KEY_DEFINE			0x48151623
 #define HARDWIRE_DEFINE 			0x06
 #define FIRMWARE_DEFINE 			0x05
-#define SN_DEFINE 					0x1121001
+//#define SN_DEFINE 					prb_v0.1//0x1121001
 //--------------------------------------------------------------------------
 // Параметры щупа
 #define MAX_VAL_M12 				88//	шаг 0,2В в диапозоне [-5:12:0,2] 85  TODO:найти что за 3 значения?!

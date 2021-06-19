@@ -58,10 +58,10 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 //--------------------------------------------------------------------------
-//void SetDacA(uint16_t);
-//void SetDacB(uint16_t);
-void SetDacA(int16_t da);
-void SetDacB(int16_t db);
+void SetDacA(uint16_t);
+void SetDacB(uint16_t);
+/*void SetDacA(int16_t da);
+void SetDacB(int16_t db);*/
 void SetAllDAC();
 //--------------------------------------------------------------------------
 uint16_t GetDacA();
@@ -93,20 +93,16 @@ void writeTable();
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define AD5312_LDAC_Pin         GPIO_PIN_1
-#define AD5312_LDAC_GPIO_Port   GPIOA
-
-#define Relay_Pin               GPIO_PIN_2
-#define Relay_GPIO_Port         GPIOA
-
-#define AD5312_SYNC_Pin         GPIO_PIN_4
-#define AD5312_SYNC_GPIO_Port   GPIOA
-
-#define AD5312_SCLK_Pin         GPIO_PIN_5
-#define AD5312_SCLK_GPIO_Port   GPIOA
-
-#define AD5312_DIN_Pin          GPIO_PIN_7
-#define AD5312_DIN_GPIO_Port    GPIOA
+#define AD5312_LDAC_Pin GPIO_PIN_1
+#define AD5312_LDAC_GPIO_Port GPIOA
+#define Relay_Pin GPIO_PIN_2
+#define Relay_GPIO_Port GPIOA
+#define AD5312_SYNC_Pin GPIO_PIN_4
+#define AD5312_SYNC_GPIO_Port GPIOA
+#define AD5312_SCLK_Pin GPIO_PIN_5
+#define AD5312_SCLK_GPIO_Port GPIOA
+#define AD5312_DIN_Pin GPIO_PIN_7
+#define AD5312_DIN_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

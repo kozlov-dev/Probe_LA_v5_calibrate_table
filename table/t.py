@@ -124,20 +124,36 @@ EOF = "\n"
 # f.write("\n")
 
 
+# for item in list(range(len(dacValA_m12))):
+#     f.write("     DevNVRAM->calibration_table." + "dacValA_m12["+str(item)+"] = "+"%s;\n" % hex(dacValA_m12[item]))
+# f.write("\n")
+
+# for item in list(range(len(dacValB_m12))):
+#     f.write("     DevNVRAM->calibration_table." + "dacValB_m12["+str(item)+"] = "+"%s;\n" % hex(dacValB_m12[item]))
+# f.write("\n")
+
+# for item in list(range(len(dacValA_m27))):
+#     f.write("     DevNVRAM->calibration_table." + "dacValA_m27["+str(item)+"] = "+"%s;\n" % hex(dacValA_m27[item]))
+# f.write("\n")
+
+# for item in list(range(len(dacValB_m27))):
+#     f.write("     DevNVRAM->calibration_table." + "dacValB_m27["+str(item)+"] = "+"%s;\n" % hex(dacValB_m27[item]))
+# f.write("\n")
+
 for item in list(range(len(dacValA_m12))):
-    f.write("     DevNVRAM->calibration_table." + "dacValA_m12["+str(item)+"] = "+"%s;\n" % hex(dacValA_m12[item]))
+    f.write("      calibTable->" + "dacValA_m12["+str(item)+"] = "+"%s;\n" % hex(dacValA_m12[item]))
 f.write("\n")
 
 for item in list(range(len(dacValB_m12))):
-    f.write("     DevNVRAM->calibration_table." + "dacValB_m12["+str(item)+"] = "+"%s;\n" % hex(dacValB_m12[item]))
+    f.write("     calibTable->" + "dacValB_m12["+str(item)+"] = "+"%s;\n" % hex(dacValB_m12[item]))
 f.write("\n")
 
 for item in list(range(len(dacValA_m27))):
-    f.write("     DevNVRAM->calibration_table." + "dacValA_m27["+str(item)+"] = "+"%s;\n" % hex(dacValA_m27[item]))
+    f.write("     calibTable->" + "dacValA_m27["+str(item)+"] = "+"%s;\n" % hex(dacValA_m27[item]))
 f.write("\n")
 
 for item in list(range(len(dacValB_m27))):
-    f.write("     DevNVRAM->calibration_table." + "dacValB_m27["+str(item)+"] = "+"%s;\n" % hex(dacValB_m27[item]))
+    f.write("     calibTable->" + "dacValB_m27["+str(item)+"] = "+"%s;\n" % hex(dacValB_m27[item]))
 f.write("\n")
 
 

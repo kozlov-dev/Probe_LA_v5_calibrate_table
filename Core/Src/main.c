@@ -236,33 +236,33 @@ uint32_t getCRC_table_b_m27()
 #endif /* TEST_FLASH_TABLE */
 //**************************************************************************
 #if TEST_DAC
+uint16_t VDAC_A = 0;
+uint16_t VDAC_B = 0;
 // Старая реализация. для приема dgt значений цап.
-//void SetDacA(uint16_t da) {
-//	VDAC_A = da;
-//	DAC_AD5322_Ch2(&hspi1, VDAC_A);
-//}
-//void SetDacB(uint16_t db) {
-//	VDAC_B = db;
-//	DAC_AD5322_Ch2(&hspi1, VDAC_B);
-//}
+void SetDacA(uint16_t da) {
+	VDAC_A = da;
+	DAC_AD5322_Ch2(&hspi1, VDAC_A);
+}
+void SetDacB(uint16_t db) {
+	VDAC_B = db;
+	DAC_AD5322_Ch2(&hspi1, VDAC_B);
+}
 //void SetAllDAC() {
 //	DAC_AD5322_Ch1Ch2(&hspi1,VDAC_A,VDAC_B);
 //}
 //--------------------------------------------------------------------------
-uint16_t VDAC_A = 0;
-uint16_t VDAC_B = 0;
 // Новая реализация. для приема значений в напряжениях, с поиском по структуре DevNVRAM выгруженной из памяти.
 //TODO: Установка цап реализованно только для канала A и режима m12. Нужно переписать с учетом режима работы. режим работы определяет какую таблицу использовать.
-void SetDacA(int16_t da)
-{
-	VDAC_A = volt2dgt(&(DevNVRAM.calibration_table), da);
-	DAC_AD5322_Ch1(&hspi1, VDAC_A);
-}
-void SetDacB(int16_t db) //BUG: Не работает. Установка цап реализованно только для канала A и режима m12. Нужно переписать с учетом режима работы. режим работы определяет какую таблицу использовать.
-{
-	VDAC_B = volt2dgt(&(DevNVRAM.calibration_table), db);
-	DAC_AD5322_Ch2(&hspi1, VDAC_B);
-}
+//void SetDacA(int16_t da)
+//{
+//	VDAC_A = volt2dgt(&(DevNVRAM.calibration_table), da);
+//	DAC_AD5322_Ch1(&hspi1, VDAC_A);
+//}
+//void SetDacB(int16_t db) //BUG: Не работает. Установка цап реализованно только для канала A и режима m12. Нужно переписать с учетом режима работы. режим работы определяет какую таблицу использовать.
+//{
+//	VDAC_B = volt2dgt(&(DevNVRAM.calibration_table), db);
+//	DAC_AD5322_Ch2(&hspi1, VDAC_B);
+//}
 void SetAllDAC()
 {
 	DAC_AD5322_Ch1Ch2(&hspi1, VDAC_A, VDAC_B);
@@ -706,20 +706,28 @@ void runCommands(uint8_t *Buf, uint32_t *Len) 		// Обработчик USB
 		return;
 		//--------------------------------------------------------------------------
 		
-	}
-	else if (cmd == 0x07)	// ID?
-	{
-		char str[9] = {
-			0,
-		};
-		memcpy(str, "SN", strlen("SN"));
-		itoa(SN_DEFINE, str + 2, 16);
 
+	// ID?
+	} else if (cmd == 0x07) {
+		char str[] = "prb_v0.3";
 		UserTxBufferFS[0] = cmd;
 		UserTxBufferFS[1] = strlen(str);
 		memcpy(UserTxBufferFS + 2, str, strlen(str));
 		CDC_Transmit_FS(UserTxBufferFS, strlen(str) + 2);
-		return;
+		return (USBD_OK);
+//	else if (cmd == 0x07)	// ID? норвая реализация с серийным номером
+//	{
+//		char str[9] = {
+//			0,
+//		};
+//		memcpy(str, "SN", strlen("SN"));
+//		itoa(SN_DEFINE, str + 2, 16);
+//
+//		UserTxBufferFS[0] = cmd;
+//		UserTxBufferFS[1] = strlen(str);
+//		memcpy(UserTxBufferFS + 2, str, strlen(str));
+//		CDC_Transmit_FS(UserTxBufferFS, strlen(str) + 2);
+//		return;
 	//--------------------------------------------------------------------------
 	/* Калибровка 
 	На вход щупа подается семетричная пила с частотой 1кГц с оффестом установленным на ип.
@@ -1656,6 +1664,9 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(Relay_GPIO_Port, Relay_Pin, GPIO_PIN_SET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_15, GPIO_PIN_RESET);
+
   /*Configure GPIO pin : PC13 */
   GPIO_InitStruct.Pin = GPIO_PIN_13;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -1670,10 +1681,23 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : PB12 PB13 PB14 */
-  GPIO_InitStruct.Pin = GPIO_PIN_12|GPIO_PIN_13|GPIO_PIN_14;
+  /*Configure GPIO pin : PB12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_12;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pins : PB13 PB14 */
+  GPIO_InitStruct.Pin = GPIO_PIN_13|GPIO_PIN_14;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PB15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
 }
