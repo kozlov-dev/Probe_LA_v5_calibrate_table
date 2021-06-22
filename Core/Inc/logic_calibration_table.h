@@ -20,16 +20,27 @@
 //#define SN_DEFINE 					prb_v0.1//0x1121001
 //--------------------------------------------------------------------------
 // Параметры щупа
-#define MAX_VAL_M12 				88//	шаг 0,2В в диапозоне [-5:12:0,2] 85  TODO:найти что за 3 значения?!
-#define MAX_VAL_M27 				163//	шаг 0,2В в диапозоне [-30:30:0,2] 163*0.2= 32,6
+// #define MAX_VAL_M12 				88//	шаг 0,2В в диапозоне [-5:12:0,2] 85  TODO:найти что за 3 значения?!
+// #define MAX_VAL_M27 				163//	шаг 0,2В в диапозоне [-30:30:0,2] 163*0.2= 32,6
 
-#define STEP_CALIBRATE		200
+#define MAX_VAL_M12            19
+#define MAX_VAL_M27            2
 
-#define MIN_VOLT_MODE_12	-5000
-#define MAX_VOLT_MODE_12	12000
 
-#define MIN_VOLT_MODE_27	-27000
-#define MAX_VOLT_MODE_27	27000
+// #define STEP_CALIBRATE		200
+#define STEP_CALIBRATE         1040
+
+#define MIN_VOLT_MODE_12         -9360
+#define MAX_VOLT_MODE_12         9360
+#define MIN_VOLT_MODE_27         -27000
+#define MAX_VOLT_MODE_27         27000
+
+
+// #define MIN_VOLT_MODE_12	-5000
+// #define MAX_VOLT_MODE_12	12000
+
+// #define MIN_VOLT_MODE_27	-27000
+// #define MAX_VOLT_MODE_27	27000
 #define	Ktr 				1.04
 
 // length_mode_12v = int(((-1)*MIN_VOLT_MODE_12+MAX_VOLT_MODE_12)/step_calibrate)
@@ -103,7 +114,7 @@ union NVRAM {
 
 //--------------------------------------------------------------------------
 void crete_calibration_table(Table_t *calibTable);
-uint16_t volt2dgt(Table_t *calibTable, int16_t volt);
+uint16_t volt2dgt(Table_t *calibTable, RelState m, uint8_t Ch, int16_t volt);
 
 /* Base address of the Flash sectors */
 #define ADDR_FLASH_PAGE_0     ((uint32_t)0x08000000) /* Base @ of Page 0, 1 Kbytes */

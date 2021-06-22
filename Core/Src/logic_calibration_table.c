@@ -10,59 +10,55 @@
 #include <stdlib.h>
 #include <math.h>
 
-void crete_calibration_table(Table_t *calibTable){//de
-         
-     calibTable->dacValA_m12[0] = 0x0;
-     calibTable->dacValA_m12[1] = 0x159;
-     calibTable->dacValA_m12[2] = 0x182;
-     calibTable->dacValA_m12[3] = 0x225;
-     calibTable->dacValA_m12[4] = 0x309;
-     calibTable->dacValA_m12[5] = 0x3eb;
-     calibTable->dacValA_m12[6] = 0x4cd;
-     calibTable->dacValA_m12[7] = 0x5b0;
-     calibTable->dacValA_m12[8] = 0x693;
-     calibTable->dacValA_m12[9] = 0x777;
-     calibTable->dacValA_m12[10] = 0x861;
-     calibTable->dacValA_m12[11] = 0x93c;
-     calibTable->dacValA_m12[12] = 0xa20;
-     calibTable->dacValA_m12[13] = 0xb04;
-     calibTable->dacValA_m12[14] = 0xbe5;
-     calibTable->dacValA_m12[15] = 0xcc7;
-     calibTable->dacValA_m12[16] = 0xda9;
-     calibTable->dacValA_m12[17] = 0xe62;
-     calibTable->dacValA_m12[18] = 0xe96;
-     calibTable->dacValA_m12[19] = 0xeac;
-     calibTable->dacValA_m12[20] = 0x1000;
+void crete_calibration_table(Table_t *calibTable)
+{ //de
 
-     calibTable->dacValB_m12[0] = 0x0;
-     calibTable->dacValB_m12[1] = 0x145;
-     calibTable->dacValB_m12[2] = 0x16e;
-     calibTable->dacValB_m12[3] = 0x212;
-     calibTable->dacValB_m12[4] = 0x2f0;
-     calibTable->dacValB_m12[5] = 0x3d2;
-     calibTable->dacValB_m12[6] = 0x4b4;
-     calibTable->dacValB_m12[7] = 0x597;
-     calibTable->dacValB_m12[8] = 0x67a;
-     calibTable->dacValB_m12[9] = 0x75e;
-     calibTable->dacValB_m12[10] = 0x84a;
-     calibTable->dacValB_m12[11] = 0x923;
-     calibTable->dacValB_m12[12] = 0xa07;
-     calibTable->dacValB_m12[13] = 0xae8;
-     calibTable->dacValB_m12[14] = 0xbcc;
-     calibTable->dacValB_m12[15] = 0xcae;
-     calibTable->dacValB_m12[16] = 0xd90;
-     calibTable->dacValB_m12[17] = 0xe49;
-     calibTable->dacValB_m12[18] = 0xe7b;
-     calibTable->dacValB_m12[19] = 0xe92;
-     calibTable->dacValB_m12[20] = 0x1000;
+    calibTable->dacValA_m12[0] = 0x159;
+    calibTable->dacValA_m12[1] = 0x182;
+    calibTable->dacValA_m12[2] = 0x225;
+    calibTable->dacValA_m12[3] = 0x309;
+    calibTable->dacValA_m12[4] = 0x3eb;
+    calibTable->dacValA_m12[5] = 0x4cd;
+    calibTable->dacValA_m12[6] = 0x5b0;
+    calibTable->dacValA_m12[7] = 0x693;
+    calibTable->dacValA_m12[8] = 0x777;
+    calibTable->dacValA_m12[9] = 0x861;
+    calibTable->dacValA_m12[10] = 0x93c;
+    calibTable->dacValA_m12[11] = 0xa20;
+    calibTable->dacValA_m12[12] = 0xb04;
+    calibTable->dacValA_m12[13] = 0xbe5;
+    calibTable->dacValA_m12[14] = 0xcc7;
+    calibTable->dacValA_m12[15] = 0xda9;
+    calibTable->dacValA_m12[16] = 0xe62;
+    calibTable->dacValA_m12[17] = 0xe96;
+    calibTable->dacValA_m12[18] = 0xeac;
 
-     calibTable->dacValA_m27[0] = 0x0;
-     calibTable->dacValA_m27[1] = 0x1000;
+    calibTable->dacValB_m12[0] = 0x145;
+    calibTable->dacValB_m12[1] = 0x16e;
+    calibTable->dacValB_m12[2] = 0x212;
+    calibTable->dacValB_m12[3] = 0x2f0;
+    calibTable->dacValB_m12[4] = 0x3d2;
+    calibTable->dacValB_m12[5] = 0x4b4;
+    calibTable->dacValB_m12[6] = 0x597;
+    calibTable->dacValB_m12[7] = 0x67a;
+    calibTable->dacValB_m12[8] = 0x75e;
+    calibTable->dacValB_m12[9] = 0x84a;
+    calibTable->dacValB_m12[10] = 0x923;
+    calibTable->dacValB_m12[11] = 0xa07;
+    calibTable->dacValB_m12[12] = 0xae8;
+    calibTable->dacValB_m12[13] = 0xbcc;
+    calibTable->dacValB_m12[14] = 0xcae;
+    calibTable->dacValB_m12[15] = 0xd90;
+    calibTable->dacValB_m12[16] = 0xe49;
+    calibTable->dacValB_m12[17] = 0xe7b;
+    calibTable->dacValB_m12[18] = 0xe92;
 
-     calibTable->dacValB_m27[0] = 0x0;
-     calibTable->dacValB_m27[1] = 0x1000;
+    calibTable->dacValA_m27[0] = 0x0;
+    calibTable->dacValA_m27[1] = 0x1000;
 
- }
+    calibTable->dacValB_m27[0] = 0x0;
+    calibTable->dacValB_m27[1] = 0x1000;
+}
 
 //--------------------------------------------------------------------------
 // Описание: 
@@ -74,18 +70,86 @@ void crete_calibration_table(Table_t *calibTable){//de
 // Следующий фрагмент кода выводит на экран «10»:
 // printf("%f", floor(10.9));
 
-uint16_t volt2dgt(Table_t *calibTable, int16_t volt){
+// uint16_t volt2dgt(Table_t *calibTable, int16_t volt){
+ uint16_t volt2dgt(Table_t *calibTable, RelState m, uint8_t Ch, int16_t volt)
+ {
+     float count=0;
+     uint16_t y=0;
+     uint16_t CodeX = 0;
 
-// TODO: Нужно ли учитывать Ктр? volt = volt*Ktr 
-float count = ( abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12) ) / STEP_CALIBRATE;
-uint16_t y = ( floor( (count*abs(MIN_VOLT_MODE_12)) /
-               (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) /
-               abs(MIN_VOLT_MODE_12)*volt
-               +
-               (count*abs(MIN_VOLT_MODE_12)) /
-               (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12) ) ) ); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
-uint16_t CodeX = (((calibTable->dacValA_m12[y+1+1]-calibTable->dacValA_m12[y])/(((y+1+1) * STEP_CALIBRATE) -abs( MIN_VOLT_MODE_12)-((y+1) * STEP_CALIBRATE) - abs( MIN_VOLT_MODE_12))))*(volt-((y+1) * STEP_CALIBRATE) - abs( MIN_VOLT_MODE_12))+calibTable->dacValA_m12[y+1];
-	return CodeX;
+     switch (Ch)
+     {
+     case 1:
+         switch (m)
+         {
+         case m12:
+
+             // TODO: Нужно ли учитывать Ктр? volt = volt*Ktr
+             count = (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) / STEP_CALIBRATE;
+             y = (floor(
+                 (count * abs(MIN_VOLT_MODE_12)) / (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) / abs(MIN_VOLT_MODE_12) * volt + (count * abs(MIN_VOLT_MODE_12)) / (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)))); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
+             CodeX = (((calibTable->dacValA_m12[y + 1 ] - calibTable->dacValA_m12[y]) / (((y + 1 ) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12) - ((y ) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)))) * (volt - ((y ) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)) + calibTable->dacValA_m12[y];
+             return CodeX;
+
+             break;
+         case m27:
+
+             // TODO: Нужно ли учитывать Ктр? volt = volt*Ktr
+             count = (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)) / STEP_CALIBRATE;
+             y = (floor(
+                 (count * abs(MIN_VOLT_MODE_27)) / (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)) / abs(MIN_VOLT_MODE_27) * volt + (count * abs(MIN_VOLT_MODE_27)) / (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)))); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
+             CodeX = (((calibTable->dacValA_m27[y + 1 + 1] - calibTable->dacValA_m27[y]) / (((y + 1 + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27) - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)))) * (volt - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)) + calibTable->dacValA_m27[y + 1];
+             return CodeX;
+             break;
+         }
+         break;
+     case 2:
+         switch (m)
+         {
+         case m12:
+
+             // TODO: Нужно ли учитывать Ктр? volt = volt*Ktr
+             count = (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) / STEP_CALIBRATE;
+             y = (floor(
+                 (count * abs(MIN_VOLT_MODE_12)) / (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) / abs(MIN_VOLT_MODE_12) * volt + (count * abs(MIN_VOLT_MODE_12)) / (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)))); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
+             CodeX = (((calibTable->dacValB_m12[y + 1 + 1] - calibTable->dacValB_m12[y]) / (((y + 1 + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12) - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)))) * (volt - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)) + calibTable->dacValB_m12[y + 1];
+             return CodeX;
+             break;
+         case m27:
+
+             // TODO: Нужно ли учитывать Ктр? volt = volt*Ktr
+             count = (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)) / STEP_CALIBRATE;
+             y = (floor(
+                 (count * abs(MIN_VOLT_MODE_27)) / (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)) / abs(MIN_VOLT_MODE_27) * volt + (count * abs(MIN_VOLT_MODE_27)) / (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)))); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
+             CodeX = (((calibTable->dacValB_m12[y + 1 + 1] - calibTable->dacValB_m12[y]) / (((y + 1 + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27) - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)))) * (volt - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)) + calibTable->dacValB_m12[y + 1];
+             return CodeX;
+
+             break;
+         }
+
+         break;
+     }
+     return CodeX;
+ }
+//// TODO: Нужно ли учитывать Ктр? volt = volt*Ktr
+//float count = ( abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12) ) / STEP_CALIBRATE;
+//uint16_t y = ( floor( (count*abs(MIN_VOLT_MODE_12)) /
+//               (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) /
+//               abs(MIN_VOLT_MODE_12)*volt
+//               +
+//               (count*abs(MIN_VOLT_MODE_12)) /
+//               (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12) ) ) ); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
+//uint16_t CodeX = (((calibTable->dacValA_m12[y+1+1]-calibTable->dacValA_m12[y])/(((y+1+1) * STEP_CALIBRATE) -abs( MIN_VOLT_MODE_12)-((y+1) * STEP_CALIBRATE) - abs( MIN_VOLT_MODE_12))))*(volt-((y+1) * STEP_CALIBRATE) - abs( MIN_VOLT_MODE_12))+calibTable->dacValA_m12[y+1];
+//return CodeX;
+//
+
+
+    
+
+
+
+
+
 // printf((CodeX));
 
 
@@ -123,13 +187,6 @@ uint16_t CodeX = (((calibTable->dacValA_m12[y+1+1]-calibTable->dacValA_m12[y])/(
 // float CodeX = (((Ca1-Ca0)/(a1-a0)))*(x-a0)+Ca0;
 // 	return CodeX;
 // // printf((CodeX));
-
-
-
-
-
-}
-
 
 
 

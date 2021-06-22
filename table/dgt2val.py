@@ -10,15 +10,14 @@
 
 
 Ktr = 1.04
-minVolt = -5000
-maxVolt = 12000
+minVolt = -9360
+maxVolt = 9360
 
 x0 = abs(minVolt)
 x1 = abs(maxVolt)
 
-step = 200
+step = 1040
 count = (x0+x1)/step
-
 
 
 y0 = 0
@@ -27,16 +26,16 @@ y1 = count
 b = (count*x0)/(x0+x1)
 a = b/x0
 
-x = 300 #/ Ktr!!!!!!!!!!!!!!
+x = 2400 #/ Ktr!!!!!!!!!!!!!!
 y = a*x+b
 print(y)
 #--------------------------
 aX = x
 
-Ca0 = 2167
-Ca1 = 2225
-a0 = 200
-a1 = 400
+Ca0 = 2592
+Ca1 = 2820
+a0 = 2080
+a1 = 3120
 
 CodeX = (((Ca1-Ca0)/(a1-a0)))*(aX-a0)+Ca0
 print((CodeX))

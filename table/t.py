@@ -1,12 +1,3 @@
-'''/*******************************************************************************
- * @File: logic_calibration_table.c
- * @Author: Kozlov-dev, A.
- * @Project: Probe_LA.c * @Microcontroller: STM32F103C8T
- * @Device: Probe_LA
- * @Date: 07.04.2021
- * @Purpose: Calibration table volt2dac
- *******************************************************************************/'''
-
 dacValA_m12=[]
 dacValB_m12=[]
 
@@ -17,6 +8,8 @@ table = {'V12': [], 'V27': []}
 
 input_path = "C:/Users/kozlov/STM32CubeIDE/workspace/Probe_LA_v5_calibrate_table/table/logic_calibration_table.txt"
 output_path = "C:/Users/kozlov/STM32CubeIDE/workspace/Probe_LA_v5_calibrate_table/Core/Src/logic_calibration_table1.c"
+
+output_path2 = "C:/Users/kozlov/STM32CubeIDE/workspace/Probe_LA_v5_calibrate_table/Core/Inc/logic_calibration_table1.h"
 
 with open(input_path) as f:
     key = ''
@@ -32,7 +25,7 @@ with open(input_path) as f:
 
 
 for i in range(len(list(table["V12"]))):
-    # print(table["V12"][i][0]) # V
+    print(table["V12"][i][0]) # V
     dacValA_m12.append(table["V12"][i][1])
     # print(table["V12"][i][1]) # dacValA
     dacValB_m12.append(table["V12"][i][2])
@@ -44,6 +37,12 @@ for i in range(len(list(table["V27"]))):
     dacValA_m27.append(table["V27"][i][1])
     # print(table["V27"][i][2]) # dacValB
     dacValB_m27.append(table["V27"][i][2])
+
+
+
+
+
+
 
 
 # Запись файла 
@@ -60,15 +59,90 @@ f.write(" * @Date: 07.04.2021\n")
 f.write(" * @Purpose: Calibration table volt2dac\n")
 f.write(" *******************************************************************************/\n")
 
-# f.write("uint16_t dacValA_m12["+ str(len(dacValA_m12))+ "] = 0" +";\n")
-# f.write("uint16_t dacValB_m12["+ str(len(dacValB_m12))+ "] = 0" +";\n")
-# f.write("uint16_t dacValA_m27["+ str(len(dacValA_m27))+ "] = 0" +";\n")
-# f.write("uint16_t dacValB_m27["+ str(len(dacValB_m27))+ "] = 0" +";\n")
-# f.write("\n")
-
-
 
 EOF = "\n"
+f.write("     void crete_calibration_table(Table_t *calibTable){"+EOF)
+
+for item in list(range(len(dacValA_m12))):
+    f.write("      calibTable->" + "dacValA_m12["+str(item)+"] = "+"%s;\n" % hex(dacValA_m12[item]))
+f.write("\n")
+
+for item in list(range(len(dacValB_m12))):
+    f.write("     calibTable->" + "dacValB_m12["+str(item)+"] = "+"%s;\n" % hex(dacValB_m12[item]))
+f.write("\n")
+
+for item in list(range(len(dacValA_m27))):
+    f.write("     calibTable->" + "dacValA_m27["+str(item)+"] = "+"%s;\n" % hex(dacValA_m27[item]))
+f.write("\n")
+
+for item in list(range(len(dacValB_m27))):
+    f.write("     calibTable->" + "dacValB_m27["+str(item)+"] = "+"%s;\n" % hex(dacValB_m27[item]))
+f.write("\n")
+
+
+
+f.write(" }"+EOF)
+
+f.close()
+
+#-------------------------------------------------------------------------------------------
+f = open(output_path2, "w")
+f.write("/*******************************************************************************\n")
+f.write(" * @File: logic_calibration_table.c\n")
+f.write(" * @Author: Kozlov-dev, A.\n")
+f.write(" * @Project: Probe_LA.c")
+f.write(" * @Microcontroller: STM32F103C8T\n")
+f.write(" * @Device: Probe_LA\n")
+f.write(" * @Date: 07.04.2021\n")
+f.write(" * @Purpose: Calibration table volt2dac\n")
+f.write(" *******************************************************************************/\n")
+
+
+step = -(int(table["V12"][1][0]) - int(table["V12"][2][0]))
+MAX_VOLT_MODE_12 = table["V12"][len(table["V12"])-1][0]
+print(len(table["V12"]))
+     
+
+EOF = "\n"
+
+f.write("#ifndef LOGIC_CALIBRATION_TABLE_H" +EOF)
+f.write("#ifndef LOGIC_CALIBRATION_TABLE_H"+EOF)
+f.write(EOF)
+f.write("#define MAX_VAL_M12            "+ str(len(dacValA_m12))+EOF)
+f.write("#define MAX_VAL_M27            "+ str(len(dacValA_m27))+EOF)
+f.write(EOF)
+f.write("#define STEP_CALIBRATE         "+ str(step)+EOF)
+f.write(EOF)
+f.write("#define MIN_VOLT_MODE_12         "+ str(table["V12"][0][0])+EOF)
+f.write("#define MAX_VOLT_MODE_12         "+ str(MAX_VOLT_MODE_12)+EOF)
+
+f.write("#define MIN_VOLT_MODE_27         "+ str(table["V27"][0][0])+EOF)
+f.write("#define MAX_VOLT_MODE_27         "+ str(table["V27"][1][0])+EOF)
+
+
+f.write("\n")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # f.write("#define MAX_VAL_M12 88" +EOF)
 # f.write("#define MAX_VAL_M27 163"+EOF)
 
@@ -94,7 +168,6 @@ EOF = "\n"
 # f.write(" union NVRAM"+EOF)
 # f.write(" {"+EOF)
 
-# f.write("     table_t calibration_table;"+EOF)
 # f.write("     struct FLASH_Sector sector;"+EOF)
 # f.write("     uint16_t data16[678];"+EOF)
 # f.write(" }DevNVRAM;"+EOF)
@@ -140,22 +213,6 @@ EOF = "\n"
 #     f.write("     DevNVRAM->calibration_table." + "dacValB_m27["+str(item)+"] = "+"%s;\n" % hex(dacValB_m27[item]))
 # f.write("\n")
 
-for item in list(range(len(dacValA_m12))):
-    f.write("      calibTable->" + "dacValA_m12["+str(item)+"] = "+"%s;\n" % hex(dacValA_m12[item]))
-f.write("\n")
-
-for item in list(range(len(dacValB_m12))):
-    f.write("     calibTable->" + "dacValB_m12["+str(item)+"] = "+"%s;\n" % hex(dacValB_m12[item]))
-f.write("\n")
-
-for item in list(range(len(dacValA_m27))):
-    f.write("     calibTable->" + "dacValA_m27["+str(item)+"] = "+"%s;\n" % hex(dacValA_m27[item]))
-f.write("\n")
-
-for item in list(range(len(dacValB_m27))):
-    f.write("     calibTable->" + "dacValB_m27["+str(item)+"] = "+"%s;\n" % hex(dacValB_m27[item]))
-f.write("\n")
-
 
 
 
@@ -175,7 +232,3 @@ f.write("\n")
 #     f.write("     DevNVRAM.calibration_table." + "dacValB_m27["+str(item)+"] = "+"%s;\n" % hex(dacValB_m27[item]))
 # f.write("\n")
 
-
-f.write(" }"+EOF)
-
-f.close()

@@ -235,34 +235,40 @@ uint32_t getCRC_table_b_m27()
 //--------------------------------------------------------------------------
 #endif /* TEST_FLASH_TABLE */
 //**************************************************************************
+#if TEST_RELAY
+
+bool RelayState = m12; //TODO: проверить первое состояние --> первоначальное состояние реле 27V FIXME: Нужно изменить на m12 и подправить у Йоноса!
+#endif /* TEST_RELAY */
+//**************************************************************************
 #if TEST_DAC
 uint16_t VDAC_A = 0;
 uint16_t VDAC_B = 0;
+//--------------------------------------------------------------------------
 // Старая реализация. для приема dgt значений цап.
-void SetDacA(uint16_t da) {
-	VDAC_A = da;
-	DAC_AD5322_Ch2(&hspi1, VDAC_A);
-}
-void SetDacB(uint16_t db) {
-	VDAC_B = db;
-	DAC_AD5322_Ch2(&hspi1, VDAC_B);
-}
+// void SetDacA(uint16_t da) {
+// 	VDAC_A = da;
+// 	DAC_AD5322_Ch2(&hspi1, VDAC_A);
+// }
+// void SetDacB(uint16_t db) {
+// 	VDAC_B = db;
+// 	DAC_AD5322_Ch2(&hspi1, VDAC_B);
+// }
 //void SetAllDAC() {
 //	DAC_AD5322_Ch1Ch2(&hspi1,VDAC_A,VDAC_B);
 //}
 //--------------------------------------------------------------------------
 // Новая реализация. для приема значений в напряжениях, с поиском по структуре DevNVRAM выгруженной из памяти.
 //TODO: Установка цап реализованно только для канала A и режима m12. Нужно переписать с учетом режима работы. режим работы определяет какую таблицу использовать.
-//void SetDacA(int16_t da)
-//{
-//	VDAC_A = volt2dgt(&(DevNVRAM.calibration_table), da);
-//	DAC_AD5322_Ch1(&hspi1, VDAC_A);
-//}
-//void SetDacB(int16_t db) //BUG: Не работает. Установка цап реализованно только для канала A и режима m12. Нужно переписать с учетом режима работы. режим работы определяет какую таблицу использовать.
-//{
-//	VDAC_B = volt2dgt(&(DevNVRAM.calibration_table), db);
-//	DAC_AD5322_Ch2(&hspi1, VDAC_B);
-//}
+void SetDacA(int16_t va,RelState m)
+{
+	VDAC_A = volt2dgt(&(DevNVRAM.calibration_table), m ,1, va);
+	DAC_AD5322_Ch1(&hspi1, VDAC_A);
+}
+void SetDacB(int16_t vb, RelState m) //BUG: Не работает. Установка цап реализованно только для канала A и режима m12. Нужно переписать с учетом режима работы. режим работы определяет какую таблицу использовать.
+{
+	VDAC_B = volt2dgt(&(DevNVRAM.calibration_table),m, 2, vb);
+	DAC_AD5322_Ch2(&hspi1, VDAC_B);
+}
 void SetAllDAC()
 {
 	DAC_AD5322_Ch1Ch2(&hspi1, VDAC_A, VDAC_B);
@@ -534,11 +540,7 @@ void USB_Reset(void)
 }
 #endif /* USB_RESET */
 //**************************************************************************
-#if TEST_RELAY
-enum RelState {m12 = 0x01, m27 = 0x00}; //RelayState =|1:m12|0:m27|
-bool RelayState = m12; //TODO: проверить первое состояние --> первоначальное состояние реле 27V FIXME: Нужно изменить на m12 и подправить у Йоноса!
-#endif /* TEST_RELAY */
-//**************************************************************************
+
 #if TEST_USB
 void runCommands(uint8_t *Buf, uint32_t *Len) 		// Обработчик USB
 /*	command
@@ -625,7 +627,7 @@ void runCommands(uint8_t *Buf, uint32_t *Len) 		// Обработчик USB
 			resValTIM3_PB4(); // обнуление переменной для проведения калиброки
 			resValTIM4_PB6(); // обнуление переменной для проведения калиброки
 			memcpy(&tVal16, Buf + 1, sizeof(tVal16));
-			SetDacA(tVal16);
+			SetDacA(tVal16,RelayState);
 			//			SetDacA(tVal16);
 
 			printf("DacA: %d\n", tVal16);
@@ -650,7 +652,7 @@ void runCommands(uint8_t *Buf, uint32_t *Len) 		// Обработчик USB
 			resValTIM3_PB4(); // обнуление переменной для проведения калиброки
 			resValTIM4_PB6(); // обнуление переменной для проведения калиброки
 			memcpy(&tVal16, Buf + 1, sizeof(tVal16));
-			SetDacB(tVal16);
+			SetDacB(tVal16,RelayState);
 
 			UserTxBufferFS[0] = cmd;
 			UserTxBufferFS[1] = 0x00; // успешно
@@ -714,7 +716,7 @@ void runCommands(uint8_t *Buf, uint32_t *Len) 		// Обработчик USB
 		UserTxBufferFS[1] = strlen(str);
 		memcpy(UserTxBufferFS + 2, str, strlen(str));
 		CDC_Transmit_FS(UserTxBufferFS, strlen(str) + 2);
-		return (USBD_OK);
+		return;
 //	else if (cmd == 0x07)	// ID? норвая реализация с серийным номером
 //	{
 //		char str[9] = {
@@ -1097,13 +1099,25 @@ int main(void)
 //**************************************************************************
 #if TEST_FLASH_TABLE
 
-	flash_fill_calibTable();
+//	flash_fill_calibTable();
+	crete_calibration_table(&DevNVRAM.calibration_table);
 	flash_write_calibTable();
+	SetDacA(2080,m12);
+	SetDacA(3120,m12);
+	SetDacB(2080,m12);
+	SetDacB(3120,m12);
+
+	SetDacA(2400,m12);
+	SetDacA(27000,m27);
+	SetDacA(2400,m27);
+	SetDacA(0,m27);
+/*	
 	// Чтение DevNVRAM
-    /*volatile uint32_t l_Address = FLASH_TABLE_START_ADDR;
+    volatile uint32_t l_Address = FLASH_TABLE_START_ADDR;
     uint32_t l_Error = 0;
     uint32_t l_Index = 0;*/
-    /*
+
+	/*
     while (l_Address < FLASH_TABLE_STOP_ADDR)
     {
         DevNVRAM.data32[l_Index] = *(__IO uint32_t *)l_Address;
@@ -1116,7 +1130,7 @@ int main(void)
 
     if (DevNVRAM.calibration_table.MagicNum != 0)
     {
-        // Подготовка
+        // Подгbотовка
         // Заносим типовые значения
         // TODO: !!!!!Добавить математику расчета калибровочной таблицы!!!!!!!
         memset(DevNVRAM.data32, 0xCA, sizeof(DevNVRAM.data32));

@@ -43,7 +43,7 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+typedef enum {m12 = 0x01, m27 = 0x00} RelState; //RelayState =|1:m12|0:m27|
 
 //--------------------------------------------------------------------------
 /* USER CODE END EC */
@@ -58,10 +58,10 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
 //--------------------------------------------------------------------------
-void SetDacA(uint16_t);
-void SetDacB(uint16_t);
-/*void SetDacA(int16_t da);
-void SetDacB(int16_t db);*/
+// void SetDacA(uint16_t);
+// void SetDacB(uint16_t);
+void SetDacA(int16_t va,RelState m);
+void SetDacB(int16_t vb,RelState m);
 void SetAllDAC();
 //--------------------------------------------------------------------------
 uint16_t GetDacA();
