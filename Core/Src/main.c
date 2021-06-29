@@ -628,7 +628,7 @@ void runCommands(uint8_t *Buf, uint32_t *Len) 		// Обработчик USB
 			resValTIM4_PB6(); // обнуление переменной для проведения калиброки
 			memcpy(&tVal16, Buf + 1, sizeof(tVal16));
 			SetDacA(tVal16,RelayState);
-			//			SetDacA(tVal16);
+//						SetDacA(tVal16);
 
 			printf("DacA: %d\n", tVal16);
 			UserTxBufferFS[0] = cmd;
@@ -652,6 +652,7 @@ void runCommands(uint8_t *Buf, uint32_t *Len) 		// Обработчик USB
 			resValTIM3_PB4(); // обнуление переменной для проведения калиброки
 			resValTIM4_PB6(); // обнуление переменной для проведения калиброки
 			memcpy(&tVal16, Buf + 1, sizeof(tVal16));
+//			SetDacB(tVal16);
 			SetDacB(tVal16,RelayState);
 
 			UserTxBufferFS[0] = cmd;
@@ -1102,20 +1103,22 @@ int main(void)
 //	flash_fill_calibTable();
 	crete_calibration_table(&DevNVRAM.calibration_table);
 	flash_write_calibTable();
-	SetDacA(2080,m12);
-	SetDacA(3120,m12);
-	SetDacB(2080,m12);
-	SetDacB(3120,m12);
-
+//	SetDacA(2080,m12);
+//	SetDacA(3120,m12);
 	SetDacA(2400,m12);
-	SetDacA(27000,m27);
-	SetDacA(2400,m27);
-	SetDacA(0,m27);
-/*	
+	SetDacA(3120,m12);
+//	SetDacB(2080,m12);
+//	SetDacB(3120,m12);
+//
+//	SetDacA(27000,m27);
+//	SetDacA(2400,m27);
+//	SetDacA(0,m27);
+///*
+
 	// Чтение DevNVRAM
-    volatile uint32_t l_Address = FLASH_TABLE_START_ADDR;
-    uint32_t l_Error = 0;
-    uint32_t l_Index = 0;*/
+//    volatile uint32_t l_Address = FLASH_TABLE_START_ADDR;
+//    uint32_t l_Error = 0;
+//    uint32_t l_Index = 0;
 
 	/*
     while (l_Address < FLASH_TABLE_STOP_ADDR)
@@ -1212,7 +1215,8 @@ int main(void)
 */
 #endif /* TEST_FLASH_TABLE */
 
-	uint32_t timme = 0; // для таймера в 10 сек
+	uint32_t _timer = 0; // для таймера в 10 сек
+
 //**************************************************************************
   /* USER CODE END 2 */
 
@@ -1221,7 +1225,7 @@ int main(void)
 	while (1)
 	{
 		// Циклически проверяем соотвествует ли информация в памяти массиву настроек?
-		if ((HAL_GetTick() - timme) > 10000) // интервал  10сек
+		if ((HAL_GetTick() - _timer) > 10000) // интервал  10сек
 		{
 #if TEST_FLASH_TABLE
 /*
@@ -1278,7 +1282,7 @@ int main(void)
 				printf("flash done");
 			}*/
 #endif /* TEST_FLASH_TABLE */
-			timme = HAL_GetTick();
+			_timer = HAL_GetTick();
 		}
 
 //**************************************************************************

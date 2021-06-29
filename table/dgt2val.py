@@ -4,10 +4,54 @@
 # x1 12000 | y1 85
 # length_mode_12v = int(((-1)*MIN_VOLT_MODE_12+MAX_VOLT_MODE_12)/step_calibrate)
 
+
+
+MIN_VOLT_MODE_12 = -9360
+MAX_VOLT_MODE_12 = 9360
+STEP_CALIBRATE = 1040
+volt =2400
+
+
 # MIN_VOLT_MODE_27 = -27000
 # MAX_VOLT_MODE_27 = 27000
 # length_mode_27v = int(((-1)*MIN_VOLT_MODE_27+MAX_VOLT_MODE_27)/step_calibrate)
+#---------------------------------------
+minVolt = MIN_VOLT_MODE_12
+maxVolt = MAX_VOLT_MODE_12
 
+x0 = abs(MIN_VOLT_MODE_12)
+x1 = abs(MAX_VOLT_MODE_12)
+
+count = (x0+x1)/STEP_CALIBRATE
+
+y0 = 0 # начало индекса массива
+y1 = count #        конец индекса массива
+
+b = (count*x0)/(x0+x1)
+a = b/x0
+
+x = volt # /Ktr!!!!!!!!!!!!!!
+y = a*x+b
+# y = floor(a*x+b) # искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
+
+#     #  TODO:Найти по найденому индексу значение в массиве!  и найти значение n+1
+
+Ca0 = 2592
+Ca1 = 2820
+
+
+a0 = (y * STEP_CALIBRATE) - abs( MIN_VOLT_MODE_12)#TODO: не правльно переводит значения!27*200 = 5400
+a1 = ((y+1) * STEP_CALIBRATE) -abs( MIN_VOLT_MODE_12)# TODO: не правльно переводит значения!28*200 = 5600
+
+CA= Ca1-Ca0
+Aa = a1-a0
+AXXX = x-a0
+
+CodeX = (((CA)/(Aa)))*(AXXX)+Ca0
+
+CodeX = (((Ca1-Ca0)/(a1-a0)))*(x-a0)+Ca0
+
+#--------------------------------------------------------
 
 Ktr = 1.04
 minVolt = -9360
@@ -37,8 +81,26 @@ Ca1 = 2820
 a0 = 2080
 a1 = 3120
 
-CodeX = (((Ca1-Ca0)/(a1-a0)))*(aX-a0)+Ca0
+CA= Ca1-Ca0
+Aa = a1-a0
+AXXX = x-a0
+
+CodeX = (((CA)/(Aa)))*(AXXX)+Ca0
+CodeX_ = (((Ca1-Ca0)/(a1-a0)))*(aX-a0)+Ca0
 print((CodeX))
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # # Параметры щупа

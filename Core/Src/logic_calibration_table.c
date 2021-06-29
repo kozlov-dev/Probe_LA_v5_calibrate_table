@@ -73,9 +73,38 @@ void crete_calibration_table(Table_t *calibTable)
 // uint16_t volt2dgt(Table_t *calibTable, int16_t volt){
  uint16_t volt2dgt(Table_t *calibTable, RelState m, uint8_t Ch, int16_t volt)
  {
-     float count=0;
-     uint16_t y=0;
-     uint16_t CodeX = 0;
+//------------------------------------------------
+int16_t minVolt;
+int16_t maxVolt;
+uint16_t x0;
+uint16_t x1;
+float count;
+uint16_t y0;
+uint16_t y1;
+float b;
+float a;
+int16_t x ;
+uint16_t yi;
+float y;
+
+
+uint16_t Ca0;
+uint16_t Ca1;
+
+uint16_t a0;
+uint16_t a1;
+float CodeX ;
+
+
+
+
+
+int CA;
+int Aa;
+int AXXX;
+//------------------------------------------------
+
+
 
      switch (Ch)
      {
@@ -84,12 +113,55 @@ void crete_calibration_table(Table_t *calibTable)
          {
          case m12:
 
-             // TODO: Нужно ли учитывать Ктр? volt = volt*Ktr
-             count = (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) / STEP_CALIBRATE;
-             y = (floor(
-                 (count * abs(MIN_VOLT_MODE_12)) / (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) / abs(MIN_VOLT_MODE_12) * volt + (count * abs(MIN_VOLT_MODE_12)) / (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)))); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
-             CodeX = (((calibTable->dacValA_m12[y + 1 ] - calibTable->dacValA_m12[y]) / (((y + 1 ) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12) - ((y ) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)))) * (volt - ((y ) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)) + calibTable->dacValA_m12[y];
-             return CodeX;
+        	 minVolt = MIN_VOLT_MODE_12;
+			 maxVolt = MAX_VOLT_MODE_12;
+
+        	 x0 = abs(MIN_VOLT_MODE_12);
+             x1 = abs(MAX_VOLT_MODE_12);
+
+        	 count = (x0+x1)/STEP_CALIBRATE;
+
+        	 y0 = 0;            // начало индекса массива
+        	 y1 = count;        // конец индекса массива
+
+        	 b = (count*x0)/(x0+x1);
+        	 a = b/x0;
+
+        	 x = volt ;// /Ktr!!!!!!!!!!!!!!
+        	 yi = floor(a*x+b); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
+
+        	  // // TODO:Найти по найденому индексу значение в массиве!  и найти значение n+1
+
+        	 Ca0 =(uint16_t *) calibTable->dacValA_m12[yi];
+        	 Ca1 = calibTable->dacValA_m12[yi+1];
+        	 y = a*x+b;
+        	 a0 = (y * STEP_CALIBRATE) - abs( MIN_VOLT_MODE_12);// FIXME: !!!!!не правильные значение 2080 вместо 2400 TODO: не правльно переводит значения!27*200 = 5400
+        	 a1 = ((y+1) * STEP_CALIBRATE) -abs( MIN_VOLT_MODE_12);// TODO: не правльно переводит значения!28*200 = 5600
+
+        	 CA= Ca1-Ca0;
+        	 Aa = a1-a0;
+        	 AXXX = x-a0;
+
+        	 CodeX = (((CA)/(Aa)))*(AXXX)+Ca0;
+        	 return CodeX; //2400 -> 2662
+
+
+
+
+
+
+
+
+
+
+
+
+//             // TODO: Нужно ли учитывать Ктр? volt = volt*Ktr
+//             count = (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) / STEP_CALIBRATE;
+//             y = (floor(
+//                 (count * abs(MIN_VOLT_MODE_12)) / (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) / abs(MIN_VOLT_MODE_12) * volt + (count * abs(MIN_VOLT_MODE_12)) / (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)))); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
+//             CodeX = (((calibTable->dacValA_m12[y + 1 ] - calibTable->dacValA_m12[y]) / (((y + 1 ) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12) - ((y ) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)))) * (volt - ((y ) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)) + calibTable->dacValA_m12[y];
+//             return CodeX;
 
              break;
          case m27:
@@ -98,7 +170,7 @@ void crete_calibration_table(Table_t *calibTable)
              count = (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)) / STEP_CALIBRATE;
              y = (floor(
                  (count * abs(MIN_VOLT_MODE_27)) / (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)) / abs(MIN_VOLT_MODE_27) * volt + (count * abs(MIN_VOLT_MODE_27)) / (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)))); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
-             CodeX = (((calibTable->dacValA_m27[y + 1 + 1] - calibTable->dacValA_m27[y]) / (((y + 1 + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27) - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)))) * (volt - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)) + calibTable->dacValA_m27[y + 1];
+//             CodeX = (((calibTable->dacValA_m27[y + 1 + 1] - calibTable->dacValA_m27[y]) / (((y + 1 + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27) - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)))) * (volt - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)) + calibTable->dacValA_m27[y + 1];
              return CodeX;
              break;
          }
@@ -112,7 +184,7 @@ void crete_calibration_table(Table_t *calibTable)
              count = (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) / STEP_CALIBRATE;
              y = (floor(
                  (count * abs(MIN_VOLT_MODE_12)) / (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)) / abs(MIN_VOLT_MODE_12) * volt + (count * abs(MIN_VOLT_MODE_12)) / (abs(MIN_VOLT_MODE_12) + abs(MAX_VOLT_MODE_12)))); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
-             CodeX = (((calibTable->dacValB_m12[y + 1 + 1] - calibTable->dacValB_m12[y]) / (((y + 1 + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12) - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)))) * (volt - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)) + calibTable->dacValB_m12[y + 1];
+//             CodeX = (((calibTable->dacValB_m12[y + 1 + 1] - calibTable->dacValB_m12[y]) / (((y + 1 + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12) - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)))) * (volt - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_12)) + calibTable->dacValB_m12[y + 1];
              return CodeX;
              break;
          case m27:
@@ -121,7 +193,7 @@ void crete_calibration_table(Table_t *calibTable)
              count = (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)) / STEP_CALIBRATE;
              y = (floor(
                  (count * abs(MIN_VOLT_MODE_27)) / (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)) / abs(MIN_VOLT_MODE_27) * volt + (count * abs(MIN_VOLT_MODE_27)) / (abs(MIN_VOLT_MODE_27) + abs(MAX_VOLT_MODE_27)))); // искомый индекс в массиве!!! найти минимальное значение от него 26.5-->26 через floor
-             CodeX = (((calibTable->dacValB_m12[y + 1 + 1] - calibTable->dacValB_m12[y]) / (((y + 1 + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27) - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)))) * (volt - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)) + calibTable->dacValB_m12[y + 1];
+//             CodeX = (((calibTable->dacValB_m12[y + 1 + 1] - calibTable->dacValB_m12[y]) / (((y + 1 + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27) - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)))) * (volt - ((y + 1) * STEP_CALIBRATE) - abs(MIN_VOLT_MODE_27)) + calibTable->dacValB_m12[y + 1];
              return CodeX;
 
              break;
