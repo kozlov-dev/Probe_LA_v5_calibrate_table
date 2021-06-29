@@ -245,34 +245,34 @@ uint16_t VDAC_A = 0;
 uint16_t VDAC_B = 0;
 //--------------------------------------------------------------------------
 // Старая реализация. для приема dgt значений цап.
-// void SetDacA(uint16_t da) {
-// 	VDAC_A = da;
-// 	DAC_AD5322_Ch2(&hspi1, VDAC_A);
-// }
-// void SetDacB(uint16_t db) {
-// 	VDAC_B = db;
-// 	DAC_AD5322_Ch2(&hspi1, VDAC_B);
-// }
-//void SetAllDAC() {
-//	DAC_AD5322_Ch1Ch2(&hspi1,VDAC_A,VDAC_B);
-//}
+ void SetDacA(uint16_t da) {
+ 	VDAC_A = da;
+ 	DAC_AD5322_Ch2(&hspi1, VDAC_A);
+ }
+ void SetDacB(uint16_t db) {
+ 	VDAC_B = db;
+ 	DAC_AD5322_Ch2(&hspi1, VDAC_B);
+ }
+void SetAllDAC() {
+	DAC_AD5322_Ch1Ch2(&hspi1,VDAC_A,VDAC_B);
+}
 //--------------------------------------------------------------------------
 // Новая реализация. для приема значений в напряжениях, с поиском по структуре DevNVRAM выгруженной из памяти.
 //TODO: Установка цап реализованно только для канала A и режима m12. Нужно переписать с учетом режима работы. режим работы определяет какую таблицу использовать.
-void SetDacA(int16_t va,RelState m)
-{
-	VDAC_A = volt2dgt(&(DevNVRAM.calibration_table), m ,1, va);
-	DAC_AD5322_Ch1(&hspi1, VDAC_A);
-}
-void SetDacB(int16_t vb, RelState m) //BUG: Не работает. Установка цап реализованно только для канала A и режима m12. Нужно переписать с учетом режима работы. режим работы определяет какую таблицу использовать.
-{
-	VDAC_B = volt2dgt(&(DevNVRAM.calibration_table),m, 2, vb);
-	DAC_AD5322_Ch2(&hspi1, VDAC_B);
-}
-void SetAllDAC()
-{
-	DAC_AD5322_Ch1Ch2(&hspi1, VDAC_A, VDAC_B);
-}
+//void SetDacA(int16_t va,RelState m)
+//{
+//	VDAC_A = volt2dgt(&(DevNVRAM.calibration_table), m ,1, va);
+//	DAC_AD5322_Ch1(&hspi1, VDAC_A);
+//}
+//void SetDacB(int16_t vb, RelState m) //BUG: Не работает. Установка цап реализованно только для канала A и режима m12. Нужно переписать с учетом режима работы. режим работы определяет какую таблицу использовать.
+//{
+//	VDAC_B = volt2dgt(&(DevNVRAM.calibration_table),m, 2, vb);
+//	DAC_AD5322_Ch2(&hspi1, VDAC_B);
+//}
+//void SetAllDAC()
+//{
+//	DAC_AD5322_Ch1Ch2(&hspi1, VDAC_A, VDAC_B);
+//}
 uint16_t GetDacA()
 {
 	return VDAC_A;
