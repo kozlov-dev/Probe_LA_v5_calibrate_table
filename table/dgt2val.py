@@ -43,9 +43,9 @@ Ca1 = 2820
 a0 = (y * STEP_CALIBRATE) - abs( MIN_VOLT_MODE_12)#TODO: не правльно переводит значения!27*200 = 5400
 a1 = ((y+1) * STEP_CALIBRATE) -abs( MIN_VOLT_MODE_12)# TODO: не правльно переводит значения!28*200 = 5600
 
-CA= Ca1-Ca0
-Aa = a1-a0
-AXXX = x-a0
+CA= Ca1-Ca0 #228
+Aa = a1-a0 #1040 a0 = 2400!
+AXXX = x-a0 #0 !!!320
 
 CodeX = (((CA)/(Aa)))*(AXXX)+Ca0
 
@@ -81,9 +81,9 @@ Ca1 = 2820
 a0 = 2080
 a1 = 3120
 
-CA= Ca1-Ca0
-Aa = a1-a0
-AXXX = x-a0
+CA= Ca1-Ca0 #228
+Aa = a1-a0 #1040
+AXXX = x-a0 #320
 
 CodeX = (((CA)/(Aa)))*(AXXX)+Ca0
 CodeX_ = (((Ca1-Ca0)/(a1-a0)))*(aX-a0)+Ca0
