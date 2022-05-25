@@ -1,8 +1,9 @@
-Проект щупа логического анализатора.
+# Проект щупа логического анализатора.
 ![3D](https://github.com/kozlov-dev/Probe_LA_v5_calibrate_table/blob/main/3D.jpeg "3D")
 STM32F103C8T
 
-UPDATE:
+
+##UPDATE:
 
 :black_square_button: **DONE**: Добавить калибровочную таблицу в проект через t.py формируется - необходимо заполнять значениями в logic_calibration_table.с
 
