@@ -9,7 +9,7 @@ STM32F103C8T
 
 :black_square_button:**TODO:** Запись во флеш принятой новой калибровочной таблицы. [0x0D] data: 1B (0x00 - успешно; 0x01 - ошибка при записи)
 
-:black_square_button:**TODO:**Отправлять длину массива кратно 32b. не работает CRC --> HardFault, 
+:black_square_button: **TODO:** Отправлять длину массива кратно 32b. не работает CRC --> HardFault, 
 
 :black_square_button:**TODO:** Реализовать отправку CRC 1-4 таблицы 0x0B[CRC(1-4)]
 
