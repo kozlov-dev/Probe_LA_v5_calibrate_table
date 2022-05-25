@@ -3,7 +3,7 @@
 STM32F103C8T
 
 
-##UPDATE:
+## UPDATE:
 
 :black_square_button: **DONE**: Добавить калибровочную таблицу в проект через t.py формируется - необходимо заполнять значениями в logic_calibration_table.с
 
