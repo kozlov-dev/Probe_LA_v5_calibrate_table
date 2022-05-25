@@ -1,10 +1,10 @@
 # Проект щупа логического анализатора.
 ![3D](https://github.com/kozlov-dev/Probe_LA_v5_calibrate_table/blob/main/3D.jpeg "3D")
 STM32F103C8T
-____
+
 
 ## UPDATE:
-____
+
 :black_square_button: **DONE**: получить значение V , Поиск по значению напряжения V значение в калибровочной таблице VDAC
 
 :black_square_button:**TODO:** Реализовать прием калибровочной таблицы. 0xOA:Прием калибровочной таблицы 0x0Aoffset[data]
